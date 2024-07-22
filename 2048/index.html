@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,700" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.5/lodash.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.js"></script>
+    <script defer src="main.js"></script>
+    <title>2048 Game</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Rubik', sans-serif;
+            background-color: #282c34;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+        .wrapper {
+            display: flex;
+            max-width: 1200px;
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+            flex: 1;
+        }
+        .game-container, .guide-container {
+            flex: 1;
+            margin: 0 10px;
+        }
+        .intro {
+            text-align: center;
+        }
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+        }
+        .controls_game-btn {
+            padding: 10px 20px;
+            background-color: #8f7a66;
+            border: none;
+            color: #ffffff;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .gameboard {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            background-color: #bbada0;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            align-content: flex-start;
+        }
+        .grid_cell {
+            width: 25%;
+            height: 25%;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+        }
+        .tile-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+        .tile {
+            position: absolute;
+            width: 65px;
+            height: 65px;
+            background-color: #eee4da;
+            color: #776e65;
+            font-size: 20px;
+            line-height: 65px;
+            text-align: center;
+        }
+        .guide_arrow-wrap {
+            display: flex;
+            justify-content: space-around;
+            margin: 10px 0;
+        }
+        .guide_arrow {
+            font-size: 24px;
+        }
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #1c1c1c;
+            width: 100%;
+        }
+        footer p {
+            margin: 0;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <main class="wrapper">
+        <div class="game-container">
+            <div class="intro clearfix">
+                <h1 class="intro_title">2048</h1>
+            </div>
+            <div class="controls clearfix">
+                <div class="controls_game">
+                    <button data-js="newGame" class="controls_game-btn">New Game</button>
+                </div>
+                <div class="controls_score">
+                    <span class="controls_score-label">Score</span><br>
+                    <span class="controls_score-text" data-js="score"></span>
+                </div>
+            </div>
+            <div id="touchGameboard" class="gameboard">
+                <div class="grid"></div>
+                <div class="tile-container"></div>
+            </div>
+        </div>
+        <div class="guide-container">
+            <section class="guide clearfix">
+                <h2>How do I play?</h2>
+                <p>Tiles with matching number values can be merged into a single tile, which receives the values' sum.</p>
+                <p>To move the board, use the directional arrows - or swipe.</p>
+                <div class="guide_arrow-wrap">
+                    <span class="guide_arrow">&uHar;</span>
+                    <span class="guide_arrow">&lHar;</span>
+                    <span class="guide_arrow">&rHar;</span>
+                    <span class="guide_arrow">&dHar;</span>
+                </div>
+                <p>To win, get a 2048 tile.</p>
+            </section>
+        </div>
+    </main>
+    <script type="text/html" id="template_grid_cell">
+        <div class="grid_cell"></div>
+    </script>
+    <script type="text/html" id="template_tile">
+        <div class="tile">
+            <span class="tile_number"></span>
+        </div>
+    </script>
+    <footer>
+        <p>&copy; <a href="https://github.com/Breno-front" target="_blank">Breno</a></p>
+    </footer>
+</body>
+</html>
